@@ -1,0 +1,92 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="layout-login layout-login-simple">
+    <div class="layout-login-form-content">
+        <div class="layout-login-form" style="width: 410px; background-color: white; height: 600px; margin-top: 20px; border-radius: 5px;">
+            <div style="margin-left:122px; margin-top: 30px; text-align: center; width: 165px; height: 145px; background-color: #26A65B;">
+                <div>
+                    <span style="color: white; font-size: 80px; font-weight: 600; margin: 8px 0px 0px -45px; position: absolute;">
+                        Gf
+                    </span>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px;  font-weight:500; color: #5c656d;">
+                <span style="margin-left: 22px;font-size: 25px;">Gerenciamento de Fornecedores</span> <br /><br />
+                <span style="margin-left: 112px; font-size: 20px;">Entre com sua conta</span>
+            </div>
+
+            <div class="form-group" style="width: 350px; margin-top: 40px; margin-left: 30px; font-size: 15px; color: #5c656d;">
+                <div>
+                    <span id="lblEmail">Email</span> <br />
+                    <input id="txtEmail" type="text" name="name" value="" style="width: 350px;" />
+                </div>
+                <br />
+                <div>
+                    <span id="lblPassword">Password</span> <br />
+                    <input id="txtPassword" type="text" name="name" value="" style="width: 350px;" />
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-left: 30px; margin-top: 10px; color: #5c656d; font-size: 15px;">
+                <input type="checkbox" value="" name="" /> Lembrar-me
+                <a style="margin-left: 125px; color: #26A65B;" href="#">Esqueceu a senha?</a>
+            </div>
+
+            <div class="form-group" style="margin-top: 5px;">
+                <a class="btn" asp-action="Index" style="width: 355px; margin-left: 29px; background-color: #26A65B; color: white;">Log in</a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            $("#txtEmail").css("border", "none");
+            $("#txtPassword").css("border", "none");
+
+            $("#txtEmail").css("border-bottom", "1px solid #26A65B");
+            $("#txtPassword").css("border-bottom", "1px solid #26A65B");
+
+            $("#txtEmail")[0].addEventListener("click", e => {
+                $("#lblEmail")[0].style.fontSize = "10px";
+                $("#txtEmail").css("border-bottom", "2px solid #26A65B");
+            });
+
+            $("#txtEmail")[0].addEventListener("blur", e => {
+                $("#lblEmail")[0].style.fontSize = "15px";
+                $("#txtEmail").css("border-bottom", "1px solid #26A65B");
+            });
+
+            $("#txtPassword")[0].addEventListener("click", e => {
+                $("#lblPassword")[0].style.fontSize = "10px";
+                $("#txtPassword").css("border-bottom", "2px solid #26A65B");
+            });
+
+            $("#txtPassword")[0].addEventListener("blur", e => {
+                $("#lblPassword")[0].style.fontSize = "15px";
+                $("#txtPassword").css("border-bottom", "1px solid #26A65B");
+            });
+
+            //function myMove() {
+            //    var pixel = 15;
+
+            //    for (var i = 15; i > 10; i--) {
+            //        pixel--;
+            //        setInterval(frame, 100);
+            //    }
+
+            //    function frame() {
+            //        $("#lblEmail")[0].style.fontSize = pixel + 'px';
+            //    }
+            //}
+
+        });
+    </script>
+}

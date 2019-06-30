@@ -1,0 +1,71 @@
+﻿@model DevIO.App.ViewModels.ProdutoViewModel
+@{
+    ViewData["Title"] = "Detalhe do Produto - " + Model.Nome;
+}
+
+<div class="modal-header">
+    <h4 class="modal-title">@ViewData["Title"]</h4>
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">x</span><span class="sr-only">Fechar</span>
+    </button>
+</div>
+
+<form asp-action="Details">
+    <div class="modal-body">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="row">
+            <div class="col-md-6">
+                <img src="~/imagens/@Model.Imagem" alt="@Model.Imagem" style="width: 250px; margin-top: 7px;" />
+            </div>
+            <div class="col-md-6">
+                <dl>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FornecedorId)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Fornecedor.Nome)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Nome)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Nome)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Descricao)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Descricao)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Valor)
+                    </dt>
+                    <dd>
+                        @Model.Valor.ToString("C")
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DataCadastro)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.DataCadastro)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Ativo)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Ativo)
+                    </dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <div class="col-md-6"></div>
+            <div class="col-md-6 text-right">
+                <input type="button" name="Fechar" value="Fechar" class="btn btn-secondary" data-dismiss="modal" />
+            </div>
+        </div>
+
+    </div>
+</form>

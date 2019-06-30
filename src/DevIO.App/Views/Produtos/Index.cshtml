@@ -1,0 +1,41 @@
+﻿@model IEnumerable<DevIO.App.ViewModels.ProdutoViewModel>
+
+@{
+    ViewData["Title"] = "Lista de Produtos";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<vc:Summary></vc:Summary>
+
+<p class="text-right" supress-by-claim-name="Produto" supress-by-claim-value="Adicionar">
+    <a class="btn btn-dark" asp-action="Create">Novo Produto</a>
+</p>
+
+<div id="ProdutoTarget">
+    <partial name="_ListaProdutos" />
+</div>
+
+<!-- Pop-Up EXCLUIR -->
+<div id="myModal" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color: whitesmoke; width: 550px;">
+            <div id="myModalContent"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        //function fotoAlterada() {
+        //    $("#ImagemUpload").change(function () {
+        //        $("#img_nome").text(this.files[0].name);
+        //        $("#img_nome")[0].style.display = 'block';
+        //    });
+        //};
+
+        $(document).ready(function () {
+            AjaxModal('');
+        });
+    </script>
+}

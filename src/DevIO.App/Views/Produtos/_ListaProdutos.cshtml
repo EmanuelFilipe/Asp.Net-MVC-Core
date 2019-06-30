@@ -1,0 +1,55 @@
+﻿@model IEnumerable<DevIO.App.ViewModels.ProdutoViewModel>
+@*
+    se descomentar aparece o popup de exclusão com sucesso, porém não consigo ocultá-lo
+    <vc:Summary></vc:Summary>
+*@
+
+<table class="table table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fornecedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ativo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="~/imagens/@item.Imagem" alt="@item.ImagemUpload" style="width: 70px; height: 100px;" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fornecedor.Nome)
+                </td>
+                <td>
+                    @item.Valor.ToString("C")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ativo)
+                </td>
+                <td class="text-right">
+                    <a class="btn btn-info" onclick="javascrit:AjaxModal('#ProdutoTarget');" asp-controller="Produtos" asp-action="Details" asp-route-id="@item.Id" data-modal=""><span class="fa fa-search"></span> </a>
+                    <a disable-by-claim-name="Produto" disable-by-claim-value="Editar" class="btn btn-warning" asp-controller="Produtos" asp-action="Edit" asp-route-id="@item.Id"><span class="fa fa-pencil-alt"></span> </a>
+                    <a disable-by-claim-name="Produto" disable-by-claim-value="Excluir" class="btn btn-danger" onclick="javascrit:AjaxModal('#ProdutoTarget');" asp-controller="Produtos" asp-action="Delete" asp-route-id="@item.Id" data-modal=""><span class="fa fa-trash"></span> </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

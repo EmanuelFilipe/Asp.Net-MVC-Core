@@ -1,0 +1,106 @@
+﻿@model DevIO.App.ViewModels.FornecedorViewModel
+
+@{
+    ViewData["Title"] = "Novo Fornecedor";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-10">
+        <form asp-action="Create">
+
+            <vc:Summary></vc:Summary>
+
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Documento" class="control-label"></label>
+                <input asp-for="Documento" class="form-control" placeholder="99/9999" OnBlur="ValidaCPF(this);" />
+                <span asp-validation-for="Documento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipoFornecedor" class="control-label"></label><br />
+                <input type="radio" value="1" asp-for="TipoFornecedor" checked /> Pessoa Física<br />
+                <input type="radio" value="2" asp-for="TipoFornecedor" /> Pessoa Jurídica
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Ativo" /> @Html.DisplayNameFor(model => model.Ativo)
+                </label>
+            </div>
+
+            <h4>Endereço</h4>
+            <hr />
+
+            <partial name="_Endereco" />
+
+            <div class="form-group">
+                <input type="submit" value="Cadastrar" class="btn btn-primary" />
+                <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+
+        function ValidaCpfCnpj(obj) {
+            var tipo = $("input[name='TipoFornecedor']:checked").val();
+
+            if (tipo == "1")
+            {
+                var ao_cpf = obj.value;
+                var cpfValido = /^(([0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}))$/;
+
+                if (ao_cpf.length == 11) 
+                {
+                    if (cpfValido.test(ao_cpf) == false) {
+                        ao_cpf = ao_cpf.replace(/\D/g, "");                    //Remove tudo o que não é dígito
+                        ao_cpf = ao_cpf.replace(/(\d{3})(\d)/, "$1.$2");       //Coloca um ponto entre o terceiro e o quarto dígitos
+                        ao_cpf = ao_cpf.replace(/(\d{3})(\d)/, "$1.$2");       //Coloca um ponto entre o terceiro e o quarto dígitos
+                        ao_cpf = ao_cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2"); //Coloca um hífen entre o terceiro e o quarto dígitos
+
+                        // atribui o valor formatado para o objeto
+                        obj.value = ao_cnpj;
+                    }
+                }
+                else if (ao_cpf.length > 0) {
+                    alert("CPF inválido");
+                }
+            }
+            else
+            {
+                var ao_cnpj = obj.value;
+                var cnpjValido = /^(([0-9]{2}[.][0-9]{3}[.][0-9]{3}[\/][0-9]{4}[-][0-9]{2}))$/;
+
+                if (ao_cnpj.length == 14) 
+                {
+                    if (cnpjValido.test(ao_cnpj) == false) {
+                        ao_cnpj = ao_cnpj.replace(/\D/g, "");              //Remove tudo o que não é dígito
+                        ao_cnpj = ao_cnpj.replace(/(\d{2})(\d)/, "$1.$2"); //Coloca um . entre o segundo e o terceiro dígito
+                        ao_cnpj = ao_cnpj.replace(/(\d{3})(\d)/, "$1.$2"); //Coloca um . entre o quinto e o sexto dígito
+                        ao_cnpj = ao_cnpj.replace(/(\d{3})(\d)/, "$1/$2"); //Coloca uma / entre o oitavo e o nono dígito
+                        ao_cnpj = ao_cnpj.replace(/(\d{4})(\d)/, "$1-$2"); //Coloca um hífen entre o décimo segundo e o décimo terceiro dígito
+
+                        // atribui o valor formatado para o objeto
+                        obj.value = ao_cnpj;
+                    }
+                }
+                else if (ao_cnpj.length > 0) {
+                    alert("CNPJ inválido");
+                }
+            }
+        }
+
+        BuscaCep();
+    </script>
+}
